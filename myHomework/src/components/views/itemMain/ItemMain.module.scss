@@ -1,0 +1,22 @@
+.itemMain {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  margin: 150px auto;
+  padding: 0;
+
+  button {
+    margin: 10px auto;
+  }
+}
+
+.imageContainer {
+  max-width: 240px;
+}
+
+.itemInfo {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
