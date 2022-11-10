@@ -1,0 +1,51 @@
+.modalbody {
+  h2 {
+    text-align: center;
+    color: lighten($color: #000000, $amount: 40);
+    margin-bottom: 50px;
+    font-weight: normal;
+    letter-spacing: 0.1em;
+    font-size: 2em;
+  }
+
+  form {
+    margin: 0 50px 30px;
+  }
+
+  button {
+    border-radius: 30px;
+    background: lightseagreen;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border: none;
+    letter-spacing: 0.1em;
+  }
+
+  button:hover {
+    background: lighten($color: lightseagreen, $amount: 10) !important;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: lightseagreen;
+    text-decoration: underline;
+  }
+}
+
+.modalfooter {
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: lightseagreen;
+    text-decoration: underline;
+  }
+}

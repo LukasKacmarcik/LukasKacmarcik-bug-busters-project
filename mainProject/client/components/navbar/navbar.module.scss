@@ -1,0 +1,23 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background: #f7f7f7;
+  padding: 0;
+  img {
+    width: 230px;
+    height: 65px;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    margin-left: 5px;
+  }
+
+  padding: 0;
+}

@@ -1,0 +1,16 @@
+.rows {
+  td {
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  button {
+    margin-left: 5px;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}

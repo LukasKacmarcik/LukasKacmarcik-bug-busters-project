@@ -1,0 +1,11 @@
+.rating {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  min-width: 130px;
+
+  img {
+    max-width: 20px;
+  }
+}

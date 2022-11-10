@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm test -- --watchAll=false
+npx standardx --fix && git diff --name-only --cached | xargs git add
+npx pretty-quick --staged
+

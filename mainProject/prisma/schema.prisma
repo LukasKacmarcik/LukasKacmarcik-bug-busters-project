@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model restaurant {
+  id                String              @id @default(cuid())
+  owner_id          Int
+  name              String              @db.VarChar(120)
+  description       String              @db.VarChar(120)
+  address           String              @db.VarChar(120)
+  email             String              @db.VarChar(120)
+  phone_number      String              @db.VarChar(30)
+  delivery_fee      Float               @default(0)
+  img_url           String              @db.VarChar(255)
+  meals             meals[]
+  orders            orders[]
+  restaurant_images restaurant_images[]
+  user              user                @relation(fields: [owner_id], references: [user_id], map: "user_fk0")
+}
+
+model meal_images {
+  id       Int    @id @default(autoincrement())
+  meal_id  Int
+  real_url String @db.VarChar(255)
+  filename String @db.VarChar(255)
+  meals    meals  @relation(fields: [meal_id], references: [meal_id], onDelete: NoAction, onUpdate: NoAction, map: "meal_images_fk0")
+
+  @@index([meal_id], map: "meal_images_fk0")
+}
+
+model meals {
+  meal_name     String        @db.VarChar(255)
+  meal_id       Int           @id @default(autoincrement())
+  restaurant_id String
+  price         Float
+  img_url       String        @db.VarChar(255)
+  restaurant    restaurant    @relation(fields: [restaurant_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meals_fk0")
+  meal_images   meal_images[]
+  order_entry   order_entry[]
+
+  @@index([restaurant_id], map: "meals_fk0")
+}
+
+model order_entry {
+  id               Int    @id @default(autoincrement())
+  order_id         Int
+  meal_id          Int
+  product_quantity Int
+  orders           orders @relation(fields: [order_id], references: [orders_id], onDelete: NoAction, onUpdate: NoAction, map: "order_entry_fk0")
+  meals            meals  @relation(fields: [meal_id], references: [meal_id], onDelete: NoAction, onUpdate: NoAction, map: "order_entry_fk1")
+
+  @@index([order_id], map: "order_entry_fk0")
+  @@index([meal_id], map: "order_entry_fk1")
+}
+
+model orders {
+  orders_id     Int           @id @unique(map: "orders_id") @default(autoincrement())
+  user_id       Int
+  restaurant_id String
+  rating        Int?
+  user          user          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "orders_fk0")
+  restaurant    restaurant    @relation(fields: [restaurant_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_fk1")
+  order_entry   order_entry[]
+
+  @@index([user_id], map: "orders_fk0")
+  @@index([restaurant_id], map: "orders_fk1")
+}
+
+model restaurant_images {
+  id            Int        @id @default(autoincrement())
+  restaurant_id String
+  real_url      String     @db.VarChar(255)
+  filename      String     @db.VarChar(255)
+  restaurant    restaurant @relation(fields: [restaurant_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "restaurant_images_fk0")
+
+  @@index([restaurant_id], map: "restaurant_images_fk0")
+}
+
+model user {
+  username      String   @db.VarChar(255)
+  user_id       Int      @id @default(autoincrement())
+  email_address String   @unique(map: "email_address") @db.VarChar(255)
+  address       String   @db.VarChar(255)
+  password      String   @db.VarChar(255)
+  role          String   @db.VarChar(255)
+  orders        orders[]
+  restaurant    restaurant[]
+}
